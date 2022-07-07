@@ -1,0 +1,8 @@
+To Check Server logs
+
+sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
+
+To check Agent log
+
+sudo tail -f /var/log/cloudera-scm-agent/cloudera-scm-agent.log
+
