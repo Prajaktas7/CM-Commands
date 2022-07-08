@@ -1,0 +1,12 @@
+Swapiness
+
+To Check Swapiness
+[source,bash]
+sestatus
+
+To Change the Swapiness
+
+[source,bash]
+vi /etc/selinux/config
+
+selinux=disabled
