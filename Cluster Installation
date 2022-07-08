@@ -70,3 +70,6 @@ CREATE USER 'rangeradmin'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON ranger.* TO 'rangeradmin'@'%';
 
 
+
+wget https://22e6647b-7fab-46f2-b223-7287cac27493:600fc202bb4f@archive.cloudera.com/p/cm7/7.5.4/repo-as-tarball/cm7.5.4-redhat7.tar.gz
+
