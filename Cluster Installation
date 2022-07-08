@@ -1,8 +1,9 @@
 Swapiness
 
 To Check Swapiness
+
 [source,bash]
-sestatus
+ sestatus
 
 To Change the Swapiness
 
