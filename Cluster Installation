@@ -12,3 +12,9 @@ vi /etc/selinux/config
 selinux=disabled
 
 scp  abc root@154.61.69.150:/root/
+
+THP
+
+echo never > /sys/kernel/mm/transparent_hugepage/defrag
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+cat /sys/kernel/mm/transparent_hugepage/defrag
