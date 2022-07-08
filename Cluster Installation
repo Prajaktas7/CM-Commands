@@ -10,3 +10,5 @@ To Change the Swapiness
 vi /etc/selinux/config
 
 selinux=disabled
+
+scp  abc root@154.61.69.150:/root/
