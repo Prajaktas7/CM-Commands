@@ -1,3 +1,10 @@
+# Cluster Hardware 
+
+## Storage
+
+NOTE: Running CDP-PVC Base on storage platforms other than direct-attached physical disks can provide suboptimal performance. Cloudera Runtime and the majority of the Hadoop platform are optimized to provide high performance by distributing work across a cluster that can utilize data locality and fast local I/O.  
+
+
 #Cluster Installation steps
 
 Swapiness
