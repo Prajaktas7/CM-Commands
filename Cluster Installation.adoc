@@ -42,34 +42,23 @@ Install MySQL
 
 yum install mysql-server -y
 
-
-
+[source,bash]
 CREATE USER 'scm'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON scm.* TO 'scm'@'%';
-
 CREATE USER 'rman'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON rman.* TO 'rman'@'%';
-
 CREATE USER 'sentry'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON sentry.* TO 'sentry'@'%';
-
-
 CREATE USER 'hue'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON hue.* TO 'hue'@'%';
-
 CREATE USER 'oozie'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON oozie.* TO 'oozie'@'%';
-
 CREATE USER 'navms'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON navms.* TO 'navms'@'%';
-
 CREATE USER 'nav'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON nav.* TO 'nav'@'%';
-
-
 CREATE USER 'hive'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON metastore.* TO 'hive'@'%';
-
 CREATE USER 'rangeradmin'@'%' IDENTIFIED BY 'Cloudera@123';
 GRANT ALL ON ranger.* TO 'rangeradmin'@'%';
 
