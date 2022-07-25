@@ -200,3 +200,22 @@ gpgcheck=1
 [source,bash]
 yum -y install cloudera-manager-server
 yum -y install cloudera-manager-agent cloudera-manager-daemons
+
+=== Setup SCM database
+[source,bash]
+/usr/share/cmf/schema/scm_prepare_database.sh mysql scm scm cloudera
+
+# Run CM server and agents
+
+[source,bash]
+systemctl start cloudera-scm-agent
+systemctl enable cloudera-scm-agent
+systemctl enable cloudera-scm-server
+systemctl start cloudera-scm-server
+
+# Check it is started by looking at this line in file /var/log/cloudera-scm-server/cloudera-scm-server.log:
+
+[source,bash]
+sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
+> INFO WebServerImpl:com.cloudera.server.cmf.WebServerImpl: Started Jetty server.
+
