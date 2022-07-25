@@ -9,8 +9,10 @@ sudo yum install mariadb-server
 sudo systemctl stop mariadb
 
 ==== Update /etc/my.cnf
-[source,bash]
+
+```
 ---
+
 [mysqld]
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
