@@ -189,10 +189,6 @@ mv cm/ /var/www/html/cloudera-repos/cm/5/5.16.2/
 
 [source,bash]
 vi /etc/yum.repos.d/cloudera-manager.repo
-
-Add the following content under cloudera-manager.repo
-
-[source,bash]
 [cloudera-manager]
 name = Cloudera
 baseurl = http://154.61.69.150/cloudera-repos/cm/5/5.16.2/cm/
