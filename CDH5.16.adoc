@@ -191,6 +191,12 @@ mv cm/ /var/www/html/cloudera-repos/cm/5/5.16.2/
 vi /etc/yum.repos.d/cloudera-manager.repo
 [cloudera-manager]
 name = Cloudera
-baseurl = http://154.61.69.150/cloudera-repos/cm/5/5.16.2/cm/
-gpgkey=http://154.61.69.150/cloudera-repos/cm/5/5.16.2/cm/RPM-GPG-KEY-cloudera
+baseurl = http://cloudnode1.purplepanda.ai/cloudera-repos/cm/5/5.16.2/cm/5.16.2/
+gpgkey= http://cloudnode1.purplepanda.ai/cloudera-repos/cm/5/5.16.2/cm/RPM-GPG-KEY-cloudera
 gpgcheck=1
+
+=== Install packages
+
+[source,bash]
+yum -y install cloudera-manager-server
+yum -y install cloudera-manager-agent cloudera-manager-daemons
