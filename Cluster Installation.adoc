@@ -3,66 +3,43 @@
 
 Swapiness
 
-To Check Swapiness
+# To Check Swapiness
 
 [source,bash]
  sestatus
 
-To Change the Swapiness
+=== To Change the Swapiness
 
 [source,bash]
 vi /etc/selinux/config
-
 selinux=disabled
 
-scp  abc root@154.61.69.150:/root/
 
-THP
+# THP
 
+[source,bash]
 echo never > /sys/kernel/mm/transparent_hugepage/defrag
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
 cat /sys/kernel/mm/transparent_hugepage/defrag
 chmod +x /etc/rc.d/rc.local
 source /etc/rc.d/rc.local
 
-Disable ipv6
+# Disable ipv6
 
+[source,bash]
 cat /proc/sys/net/ipv6/conf/all/disable_ipv6
-
 vi /etc/sysctl.conf
-
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
-
 sysctl -p
 
 
-Install MySQL 
-
-yum install mysql-server -y
+# NTP
 
 [source,bash]
-CREATE USER 'scm'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON scm.* TO 'scm'@'%';
-CREATE USER 'rman'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON rman.* TO 'rman'@'%';
-CREATE USER 'sentry'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON sentry.* TO 'sentry'@'%';
-CREATE USER 'hue'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON hue.* TO 'hue'@'%';
-CREATE USER 'oozie'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON oozie.* TO 'oozie'@'%';
-CREATE USER 'navms'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON navms.* TO 'navms'@'%';
-CREATE USER 'nav'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON nav.* TO 'nav'@'%';
-CREATE USER 'hive'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON metastore.* TO 'hive'@'%';
-CREATE USER 'rangeradmin'@'%' IDENTIFIED BY 'Cloudera@123';
-GRANT ALL ON ranger.* TO 'rangeradmin'@'%';
-
-
-
-wget https://22e6647b-7fab-46f2-b223-7287cac27493:600fc202bb4f@archive.cloudera.com/p/cm7/7.5.4/repo-as-tarball/cm7.5.4-redhat7.tar.gz
+yum install ntp
+systemctl enable ntpd
+systemctl start ntpd
+systemctl status ntpd
 
