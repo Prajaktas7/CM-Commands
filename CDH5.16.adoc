@@ -1,4 +1,5 @@
 # Java Installation
+
 [source,bash]
 yum -y install java-1.8.0-openjdk-devel
 
@@ -9,7 +10,7 @@ sudo systemctl stop mariadb
 
 ==== Update /etc/my.cnf
 [source,bash]
--------
+---
 [mysqld]
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock
@@ -69,4 +70,5 @@ pid-file=/var/run/mariadb/mariadb.pid
 # include all files from the config directory
 #
 !includedir /etc/my.cnf.d
--------
+
+---
