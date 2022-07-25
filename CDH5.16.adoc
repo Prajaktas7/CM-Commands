@@ -74,3 +74,127 @@ pid-file=/var/run/mariadb/mariadb.pid
 !includedir /etc/my.cnf.d
 
 ---
+```
+
+==== Save and start MariaDB/MySQL
+[source,bash]
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+
+Run /usr/bin/mysql_secure_installation to set the MariaDB root password and other security-related settings. In a new installation, the root password is blank. 
+
+[source,bash]
+sudo /usr/bin/mysql_secure_installation
+
+
+```
+Enter current password for root (enter for none):
+OK, successfully used password, moving on...
+[...]
+Set root password? [Y/n] Y
+New password:
+Re-enter new password:
+[...]
+Remove anonymous users? [Y/n] Y
+[...]
+Disallow root login remotely? [Y/n] N
+[...]
+Remove test database and access to it [Y/n] Y
+[...]
+Reload privilege tables now? [Y/n] Y
+[...]
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure
+Thanks for using MariaDB
+```
+
+=== Install Mysql/MariaDB connector
+[source, bash]
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.gz
+tar zxvf mysql-connector-java-5.1.48.tar.gz
+sudo mkdir -p /usr/share/java/
+cd mysql-connector-java-5.1.48
+sudo cp mysql-connector-java-5.1.48-bin.jar /usr/share/java/mysql-connector-java.jar
+
+=== Creation of needed users and databases
+Login to mysql using root password and create databases
+[source, bash]
+mysql -u root -p
+
+[source,sql]
+CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE rman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE hue DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE metastore DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE sentry DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE nav DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE navms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE oozie DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON scm.* TO 'scm'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON rman.* TO 'rman'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON sentry.* TO 'sentry'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON hue.* TO 'hue'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON oozie.* TO 'oozie'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON navms.* TO 'navms'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON nav.* TO 'nav'@'%' IDENTIFIED BY 'cloudera';
+GRANT ALL ON metastore.* TO 'hive'@'%' IDENTIFIED BY 'cloudera';
+CREATE DATABASE ranger DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON ranger.* TO 'rangeradmin'@'%' IDENTIFIED BY 'cloudera';
+SHOW DATABASES;
+
+If GRANT is not working we can try below 
+[source,bash]
+CREATE USER 'scm'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON scm.* TO 'scm'@'%';
+CREATE USER 'rman'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON rman.* TO 'rman'@'%';
+CREATE USER 'sentry'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON sentry.* TO 'sentry'@'%';
+CREATE USER 'hue'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON hue.* TO 'hue'@'%';
+CREATE USER 'oozie'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON oozie.* TO 'oozie'@'%';
+CREATE USER 'navms'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON navms.* TO 'navms'@'%';
+CREATE USER 'nav'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON nav.* TO 'nav'@'%';
+CREATE USER 'hive'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON metastore.* TO 'hive'@'%';
+CREATE USER 'rangeradmin'@'%' IDENTIFIED BY 'Cloudera@123';
+GRANT ALL ON ranger.* TO 'rangeradmin'@'%';
+
+
+== Create local repository (If no internet access on the nodes)
+
+[source,bash]
+yum install -y httpd 
+systemctl enable httpd 
+systemctl start httpd 
+mkdir -p /var/www/html/cloudera-repos/cm/7/7.5.4
+mkdir -p /var/www/html/cloudera-repos/cdh/7/7.1.7 
+
+== Download Packages
+[source,bash]
+https://<username:password>@archive.cloudera.com/p/cm5/repo-as-tarball/5.16.2/cm5.16.2-centos7.tar.gz
+https://<username:password>@archive.cloudera.com/p/cdh5/parcels/5.16.2/CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel
+https://<username:password>@archive.cloudera.com/p/cdh5/parcels/5.16.2/CDH-5.16.2-1.cdh5.16.2.p0.8-el7.parcel.sha1
+https://<username:password>@archive.cloudera.com/p/cdh5/parcels/5.16.2/manifest.json
+
+[source,bash]
+tar -xvzf cm5.16.2-centos7.tar.gz
+mv cm/ /var/www/html/cloudera-repos/cm/5/5.16.2/
+
+
+=== Create the CM Repo
+
+[source,bash]
+vi /etc/yum.repos.d/cloudera-manager.repo
+
+Add the following content under cloudera-manager.repo
+
+[source,bash]
+[cloudera-manager]
+name = Cloudera
+baseurl = http://154.61.69.150/cloudera-repos/cm/5/5.16.2/cm/
+gpgkey=http://154.61.69.150/cloudera-repos/cm/5/5.16.2/cm/RPM-GPG-KEY-cloudera
+gpgcheck=1
