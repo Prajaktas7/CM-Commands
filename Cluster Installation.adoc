@@ -1,9 +1,9 @@
 
 # Cluster Installation steps
 
-Swapiness
+# Swapiness
 
-# To Check Swapiness
+=== To Check Swapiness
 
 [source,bash]
  sestatus
