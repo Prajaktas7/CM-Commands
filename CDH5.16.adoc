@@ -213,7 +213,7 @@ systemctl enable cloudera-scm-agent
 systemctl enable cloudera-scm-server
 systemctl start cloudera-scm-server
 
-# Check it is started by looking at this line in file /var/log/cloudera-scm-server/cloudera-scm-server.log:
+=== Check it is started by looking at this line in file /var/log/cloudera-scm-server/cloudera-scm-server.log:
 
 [source,bash]
 sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
